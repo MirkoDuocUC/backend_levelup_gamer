@@ -197,6 +197,37 @@ CREATE TABLE orden_items (
 ) ENGINE=InnoDB;
 
 -- ============================================
+-- TABLA: pedidos
+-- Pedidos simples (Requerimiento Integración)
+-- ============================================
+CREATE TABLE pedidos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    usuario_id INT NOT NULL,
+    fecha DATETIME DEFAULT CURRENT_TIMESTAMP,
+    total DECIMAL(10,2) NOT NULL,
+    estado VARCHAR(50) DEFAULT 'PENDIENTE',
+    FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE RESTRICT,
+    INDEX idx_usuario (usuario_id),
+    INDEX idx_estado (estado)
+) ENGINE=InnoDB;
+
+-- ============================================
+-- TABLA: detalles_pedido
+-- Detalles de pedidos simples
+-- ============================================
+CREATE TABLE detalles_pedido (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    pedido_id INT NOT NULL,
+    producto_id INT NOT NULL,
+    cantidad INT NOT NULL,
+    precio_unitario DECIMAL(10,2) NOT NULL,
+    FOREIGN KEY (pedido_id) REFERENCES pedidos(id) ON DELETE CASCADE,
+    FOREIGN KEY (producto_id) REFERENCES productos(id) ON DELETE RESTRICT,
+    INDEX idx_pedido (pedido_id),
+    INDEX idx_producto (producto_id)
+) ENGINE=InnoDB;
+
+-- ============================================
 -- TABLA: resenas
 -- Reseñas de productos por usuarios
 -- ============================================

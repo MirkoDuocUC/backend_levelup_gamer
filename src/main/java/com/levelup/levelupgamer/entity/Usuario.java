@@ -114,7 +114,7 @@ public class Usuario implements UserDetails {
         updatedAt = LocalDateTime.now();
     }
 
-    // ========== UserDetails Implementation ==========
+    
 
     @Override
     @com.fasterxml.jackson.annotation.JsonIgnore
